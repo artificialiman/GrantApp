@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade - GrantApp</title>
+    <style>
+        :root {
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-luxury: 'Playfair Display', Georgia, serif;
+            --font-mono: 'SF Mono', 'Monaco', monospace;
+            
+            --primary: #000000;
+            --secondary: #FFFFFF;
+            --accent: #D4AF37;
+            --success: #059669;
+            --warning: #D97706;
+            --error: #DC2626;
+            --info: #2563EB;
+            
+            --neutral-50: #FAFAFA;
+            --neutral-100: #F5F5F5;
+            --neutral-200: #E5E5E5;
+            --neutral-300: #D4D4D4;
+            --neutral-500: #737373;
+            --neutral-700: #404040;
+            --neutral-900: #171717;
+            
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --blur: blur(8px);
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 0.375rem;
+            --border: 1px solid var(--neutral-200);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: var(--font-primary); 
+            color: var(--primary); 
+            background: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 0 var(--space-md); }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+
+        .p-md { padding: var(--space-md); }
+        .p-lg { padding: var(--space-lg); }
+        .p-xl { padding: var(--space-xl); }
+        .py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+        .py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+        .py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+
+        .font-luxury { font-family: var(--font-luxury); }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .text-center { text-align: center; }
+        .text-muted { color: var(--neutral-500); }
+        .hidden { display: none; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border: var(--border);
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            cursor: pointer;
+            transition: all var(--transition);
+            border-radius: var(--radius);
+        }
+
+        .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-primary { background: var(--primary); color: var(--secondary); border-color: var(--primary); }
+        .btn-accent { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        .btn-ghost { border: none; background: none; }
+        .btn-ghost:hover { background: var(--neutral-100); }
+        .btn-lg { padding: var(--space-md) var(--space-xl); font-size: 1rem; }
+        .w-full { width: 100%; }
+
+        .card {
+            background: var(--secondary);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .card-header { padding: var(--space-lg); border-bottom: var(--border); }
+        .card-body { padding: var(--space-lg); }
+        .card-footer { padding: var(--space-lg); border-top: var(--border); }
+
+        .feature-list { list-style: none; }
+        .feature-list li { padding: var(--space-sm) 0; border-bottom: 1px solid var(--neutral-100); }
+        .feature-list li:last-child { border-bottom: none; }
+
+        .status { text-align: center; margin: var(--space-lg) 0; font-weight: 600; }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--neutral-200);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--space-md);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-md) var(--space-lg); border-bottom: var(--border);">
+        <a href="index.html" class="navbar-brand" style="font-family: var(--font-luxury); font-size: 1.25rem; text-decoration: none; color: var(--primary);">GrantApp</a>
+        <button class="btn btn-ghost" onclick="window.location.href='index.html'">Back to Home</button>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1 class="text-2xl font-luxury mb-sm">Upgrade to Premium</h1>
+                <p class="text-muted">Unlock all features with one-time payment</p>
+            </div>
+            <div class="card-body">
+                <ul class="feature-list mb-lg">
+                    <li>✓ Unlimited adaptive quizzes</li>
+                    <li>✓ Detailed performance analytics</li>
+                    <li>✓ Taxonomy-based learning insights</li>
+                    <li>✓ Progress tracking across all subjects</li>
+                    <li>✓ Priority support</li>
+                </ul>
+                
+                <div class="text-center mb-lg">
+                    <div class="text-xl font-semibold">0.01 SOL</div>
+                    <div class="text-sm text-muted">One-time payment • Lifetime access</div>
+                </div>
+                
+                <a id="payment-link" class="btn btn-accent btn-lg w-full mb-md">Pay with Solana</a>
+                <button class="btn btn-primary w-full" id="verify-btn" onclick="CheckoutApp.verifyPayment()">
+                    I've Paid - Verify Transaction
+                </button>
+                <button class="btn btn-ghost w-full" onclick="CheckoutApp.cancelPayment()">Cancel</button>
+                
+                <div class="status" id="payment-status"></div>
+                <div id="loading" class="hidden">
+                    <div class="loading-spinner"></div>
+                    <div class="text-center text-muted">Verifying payment...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="payment-verifier.js"></script>
+    <script>
+        let paymentVerifier;
+        let currentReference;
+
+        window.CheckoutApp = {
+            async init() {
+                const config = await this.loadConfig();
+                paymentVerifier = new PaymentVerifier(config);
+                this.setupPayment();
+            },
+
+            async loadConfig() {
+                try {
+                    const response = await fetch('./configs/solana.json');
+                    return await response.json();
+                } catch (error) {
+                    return { quizPrice: 0.01, merchant: 'demo_merchant' };
+                }
+            },
+
+            setupPayment() {
+                currentReference = paymentVerifier.generateReference();
+                const paymentLink = paymentVerifier.createPaymentLink();
+                document.getElementById('payment-link').href = paymentLink;
+                document.getElementById('payment-link').textContent = `Pay ${paymentVerifier.config.quizPrice} SOL`;
+            },
+
+            async verifyPayment() {
+                const verifyBtn = document.getElementById('verify-btn');
+                const statusEl = document.getElementById('payment-status');
+                const loadingEl = document.getElementById('loading');
+                
+                verifyBtn.disabled = true;
+                statusEl.textContent = 'Waiting for payment confirmation...';
+                statusEl.style.color = 'var(--info)';
+                loadingEl.classList.remove('hidden');
+                
+                try {
+                    const verified = await paymentVerifier.verifyPayment(currentReference);
+                    
+                    if (verified) {
+                        statusEl.textContent = 'Payment verified! Welcome to Premium!';
+                        statusEl.style.color = 'var(--success)';
+                        storage.set('premium_user', true);
+                        setTimeout(() => window.location.href = 'index.html', 2000);
+                    } else {
+                        statusEl.textContent = 'Payment not found. Please try again.';
+                        statusEl.style.color = 'var(--error)';
+                        verifyBtn.disabled = false;
+                    }
+                } catch (error) {
+                    statusEl.textContent = 'Error verifying payment: ' + error.message;
+                    statusEl.style.color = 'var(--error)';
+                    verifyBtn.disabled = false;
+                } finally {
+                    loadingEl.classList.add('hidden');
+                }
+            },
+
+            cancelPayment() {
+                if (paymentVerifier) {
+                    paymentVerifier.stopVerification();
+                }
+                window.location.href = 'index.html';
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => window.CheckoutApp.init());
+    </script>
+</body>
+</html>

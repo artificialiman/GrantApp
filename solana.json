@@ -1,0 +1,6 @@
+{
+  "network": "devnet",
+  "rpcUrl": "https://api.devnet.solana.com",
+  "merchant": "HwMvj7opD4NtF7u2TYjZP27gS2qGQv9nY6bWkQ8V8pRk",
+  "quizPrice": 0.01
+}

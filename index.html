@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrantApp - Adaptive Exam Prep</title>
+    <style>
+        :root {
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-luxury: 'Playfair Display', Georgia, serif;
+            --font-mono: 'SF Mono', 'Monaco', monospace;
+            
+            --primary: #000000;
+            --secondary: #FFFFFF;
+            --accent: #D4AF37;
+            --success: #059669;
+            --warning: #D97706;
+            --error: #DC2626;
+            --info: #2563EB;
+            
+            --neutral-50: #FAFAFA;
+            --neutral-100: #F5F5F5;
+            --neutral-200: #E5E5E5;
+            --neutral-300: #D4D4D4;
+            --neutral-500: #737373;
+            --neutral-700: #404040;
+            --neutral-900: #171717;
+            
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --blur: blur(8px);
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 0.375rem;
+            --border: 1px solid var(--neutral-200);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: var(--font-primary); 
+            color: var(--primary); 
+            background: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); }
+        .grid { display: grid; gap: var(--space-lg); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+
+        .p-md { padding: var(--space-md); }
+        .p-lg { padding: var(--space-lg); }
+        .p-xl { padding: var(--space-xl); }
+        .py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+        .py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+        .py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+
+        .font-luxury { font-family: var(--font-luxury); }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .text-center { text-align: center; }
+        .text-muted { color: var(--neutral-500); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border: var(--border);
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            cursor: pointer;
+            transition: all var(--transition);
+            border-radius: var(--radius);
+        }
+
+        .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn-primary { background: var(--primary); color: var(--secondary); border-color: var(--primary); }
+        .btn-accent { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        .btn-ghost { border: none; background: none; }
+        .btn-ghost:hover { background: var(--neutral-100); }
+        .btn-lg { padding: var(--space-md) var(--space-xl); font-size: 1rem; }
+        .w-full { width: 100%; }
+
+        .card {
+            background: var(--secondary);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .card-header { padding: var(--space-lg); border-bottom: var(--border); }
+        .card-body { padding: var(--space-lg); }
+        .card-footer { padding: var(--space-lg); border-top: var(--border); }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--secondary);
+            border-bottom: var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .navbar-brand {
+            font-family: var(--font-luxury);
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: var(--blur);
+        }
+        .modal {
+            background: var(--secondary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .modal-sm { max-width: 400px; }
+
+        .hidden { display: none; }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .container { padding: 0 var(--space-sm); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">GrantApp</a>
+        <div class="flex items-center gap-md">
+            <button class="btn btn-ghost" onclick="GrantApp.showComingSoon('Analytics')">Analytics</button>
+            <button class="btn btn-accent" onclick="GrantApp.goToCheckout()">Upgrade</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="py-2xl text-center mb-xl">
+            <h1 class="font-luxury text-4xl mb-lg">GrantApp</h1>
+            <p class="text-lg text-muted mb-xl">Adaptive Exam Preparation Platform</p>
+            
+            <div class="grid grid-3 mb-xl">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-2xl font-semibold mb-sm">JAMB/UTME</h3>
+                        <p class="text-muted mb-lg">Mathematics, English, Physics, Chemistry</p>
+                        <button class="btn btn-primary w-full" onclick="GrantApp.goToQuiz()">Start Practice</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-2xl font-semibold mb-sm">SAT</h3>
+                        <p class="text-muted mb-lg">Math, Reading & Writing</p>
+                        <button class="btn btn-ghost w-full" onclick="GrantApp.showComingSoon('SAT')">Coming Soon</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-2xl font-semibold mb-sm">AWS Certs</h3>
+                        <p class="text-muted mb-lg">Cloud Practitioner, Solutions Architect</p>
+                        <button class="btn btn-ghost w-full" onclick="GrantApp.showComingSoon('AWS')">Coming Soon</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <div class="card-header">
+                    <h3 class="text-xl font-semibold">Quick Demo</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-lg">Experience our adaptive quiz system with sample questions</p>
+                    <button class="btn btn-accent btn-lg w-full" onclick="GrantApp.startDemo()">Try Demo Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-xl font-semibold">Premium Features</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-2">
+                    <div>
+                        <ul style="list-style: none;">
+                            <li class="mb-sm">✓ Unlimited Adaptive Quizzes</li>
+                            <li class="mb-sm">✓ Detailed Performance Analytics</li>
+                            <li class="mb-sm">✓ Taxonomy-Based Learning</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul style="list-style: none;">
+                            <li class="mb-sm">✓ Progress Tracking</li>
+                            <li class="mb-sm">✓ Advanced Question Patterns</li>
+                            <li class="mb-sm">✓ Priority Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-full mt-lg" onclick="GrantApp.goToCheckout()">Upgrade to Premium</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="coming-soon-modal" class="modal-overlay hidden">
+        <div class="modal modal-sm">
+            <div class="card">
+                <div class="card-header">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">Coming Soon</h3>
+                        <button class="btn btn-ghost btn-sm" onclick="GrantApp.closeModal('coming-soon-modal')">&times;</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted" id="coming-soon-message">This feature is coming soon!</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary w-full" onclick="GrantApp.closeModal('coming-soon-modal')">Got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.GrantApp = {
+            goToQuiz() {
+                window.location.href = 'quiz.html';
+            },
+            
+            goToCheckout() {
+                window.location.href = 'checkout.html';
+            },
+            
+            startDemo() {
+                window.location.href = 'quiz.html?demo=true';
+            },
+            
+            showComingSoon(feature) {
+                document.getElementById('coming-soon-message').textContent = `${feature} is coming soon!`;
+                this.showModal('coming-soon-modal');
+            },
+            
+            showModal(modalId) {
+                document.getElementById(modalId).classList.remove('hidden');
+            },
+            
+            closeModal(modalId) {
+                document.getElementById(modalId).classList.add('hidden');
+            }
+        };
+    </script>
+</body>
+</html>

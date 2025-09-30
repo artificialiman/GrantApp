@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - GrantApp</title>
+    <style>
+        :root {
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-luxury: 'Playfair Display', Georgia, serif;
+            --font-mono: 'SF Mono', 'Monaco', monospace;
+            
+            --primary: #000000;
+            --secondary: #FFFFFF;
+            --accent: #D4AF37;
+            --success: #059669;
+            --warning: #D97706;
+            --error: #DC2626;
+            --info: #2563EB;
+            
+            --neutral-50: #FAFAFA;
+            --neutral-100: #F5F5F5;
+            --neutral-200: #E5E5E5;
+            --neutral-300: #D4D4D4;
+            --neutral-500: #737373;
+            --neutral-700: #404040;
+            --neutral-900: #171717;
+            
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --blur: blur(8px);
+            --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 0.375rem;
+            --border: 1px solid var(--neutral-200);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: var(--font-primary); 
+            color: var(--primary); 
+            background: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 var(--space-md); }
+        .grid { display: grid; gap: var(--space-lg); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+
+        .p-md { padding: var(--space-md); }
+        .p-lg { padding: var(--space-lg); }
+        .p-xl { padding: var(--space-xl); }
+        .py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+        .py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+        .py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+
+        .font-luxury { font-family: var(--font-luxury); }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .text-center { text-align: center; }
+        .text-muted { color: var(--neutral-500); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border: var(--border);
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            cursor: pointer;
+            transition: all var(--transition);
+            border-radius: var(--radius);
+        }
+
+        .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn-primary { background: var(--primary); color: var(--secondary); border-color: var(--primary); }
+        .btn-ghost { border: none; background: none; }
+        .btn-ghost:hover { background: var(--neutral-100); }
+
+        .card {
+            background: var(--secondary);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .card-header { padding: var(--space-lg); border-bottom: var(--border); }
+        .card-body { padding: var(--space-lg); }
+
+        .metric-card {
+            text-align: center;
+            padding: var(--space-lg);
+            border: var(--border);
+            border-radius: var(--radius);
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--neutral-100);
+        }
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-4 { grid-template-columns: 1fr; }
+            .container { padding: 0 var(--space-sm); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" style="display: flex; align-items: center; justify-content: space-between; padding: var(--space-md) var(--space-lg); border-bottom: var(--border);">
+        <a href="index.html" class="navbar-brand" style="font-family: var(--font-luxury); font-size: 1.25rem; text-decoration: none; color: var(--primary);">GrantApp</a>
+        <button class="btn btn-ghost" onclick="window.location.href='index.html'">Back to Home</button>
+    </nav>
+
+    <div class="container">
+        <section class="py-xl text-center">
+            <h1 class="font-luxury text-3xl mb-lg">Quiz Complete!</h1>
+            
+            <div class="grid grid-4 mb-xl">
+                <div class="metric-card">
+                    <div class="metric-value" id="score-display">0%</div>
+                    <div>Overall Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="correct-display">0</div>
+                    <div>Correct Answers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="incorrect-display">0</div>
+                    <div>Incorrect Answers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="time-display">0:00</div>
+                    <div>Time Taken</div>
+                </div>
+            </div>
+
+            <div class="card mb-xl">
+                <div class="card-header">
+                    <h3 class="text-xl font-semibold">Performance Analysis</h3>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-2">
+                        <div>
+                            <h4 class="font-semibold mb-md">Question Patterns</h4>
+                            <div id="pattern-breakdown">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-md">Information Types</h4>
+                            <div id="info-breakdown">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center gap-md">
+                <button class="btn btn-primary" onclick="ReviewApp.retakeQuiz()">Retake Quiz</button>
+                <button class="btn btn-ghost" onclick="window.location.href='index.html'">Back to Home</button>
+                <button class="btn btn-ghost" onclick="ReviewApp.upgradeForAnalytics()">Detailed Analytics</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="storage.js"></script>
+    <script>
+        window.ReviewApp = {
+            init() {
+                const results = storage.get('lastQuizResults');
+                if (!results) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+                this.displayResults(results);
+            },
+
+            displayResults(results) {
+                document.getElementById('score-display').textContent = `${results.score.toFixed(1)}%`;
+                document.getElementById('correct-display').textContent = results.correctCount;
+                document.getElementById('incorrect-display').textContent = results.totalQuestions - results.correctCount;
+                document.getElementById('time-display').textContent = this.formatTime(results.totalTime);
+                
+                this.displayPatternBreakdown(results.performanceByPattern);
+                this.displayInfoBreakdown(results.performanceByInformation);
+            },
+
+            displayPatternBreakdown(patterns) {
+                const container = document.getElementById('pattern-breakdown');
+                container.innerHTML = Object.entries(patterns)
+                    .map(([pattern, data]) => `
+                        <div class="breakdown-item">
+                            <span>${pattern.split('_')[0]}:</span>
+                            <span>${data.percentage.toFixed(1)}% (${data.correct}/${data.total})</span>
+                        </div>
+                    `).join('');
+            },
+
+            displayInfoBreakdown(information) {
+                const container = document.getElementById('info-breakdown');
+                container.innerHTML = Object.entries(information)
+                    .map(([type, data]) => `
+                        <div class="breakdown-item">
+                            <span>${type.split('_')[0]}:</span>
+                            <span>${data.percentage.toFixed(1)}% (${data.correct}/${data.total})</span>
+                        </div>
+                    `).join('');
+            },
+
+            formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            },
+
+            retakeQuiz() {
+                window.location.href = 'quiz.html';
+            },
+
+            upgradeForAnalytics() {
+                window.location.href = 'checkout.html';
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => window.ReviewApp.init());
+    </script>
+</body>
+</html>
